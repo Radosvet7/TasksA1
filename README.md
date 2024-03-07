@@ -2,14 +2,7 @@
 Дадена е таблицата Staff, в която са записани служителите на компанията, датата, от която са на дадената позиция и ID на позицията.
 Да се извадят всички служители, които към 01.01.2014 са на PositionID = 15.
 
-Table Staff
-ID	UserID	FName	LName	StartDate	PositionID
-12	12	Ivan	Petrov	5.3.2012	11
-13	123	Asen 	Vasev	  6.3.2012	15
-14	34	Maya	Dimova	7.3.2012	11
-15	34	Maya	Dimova	8.3.2013	15
-16	12	Ivan	Petrov	9.3.2015	15
-17	34	Maya	Dimova	8.3.2018	11
+##ins pic
 
 ```sql
 WITH EmpLastPos AS (
@@ -36,3 +29,66 @@ JOIN
 ORDER BY 
     s.FName, s.LName ASC;
 ```
+
+##ins result
+
+### Task 2
+Имаме таблица, която описва с исторически интервали дългосрочните договори на абонатите.
+SubID – Id на абоната
+StartDT – начална дата на записа
+EndDT – крайна дата на записа
+ContractEndDT – крайна дата на дългосрочния договор на абоната
+ContractPeriod – продължителност на дългосрочния договор
+Искаме да получим месечното състояние на договорите на абонатите и по-точно MonthTowardExpiration – брой месеци, оставащи до изтичането на договора
+
+## ins pic
+
+```sql
+WITH ContractsId AS (
+  SELECT 
+    *,
+    ROW_NUMBER() OVER (PARTITION BY SubID ORDER BY StartDT) AS ContractID
+  FROM 
+    Contracts
+),
+RecursiveMonths AS (
+  SELECT 
+    c.SubID,
+    c.ContractID,
+    DATEFROMPARTS(YEAR(c.StartDT), MONTH(c.StartDT),1) AS FromDT,
+    DATEADD(day, 1, EOMONTH(c.StartDT)) AS ToDT,
+    DATEFROMPARTS(YEAR(c.EndDT), MONTH(c.EndDT), 1) AS EndMonth,
+    c.ContractPeriod,
+	DATEFROMPARTS(YEAR(c.ContractEndDT), MONTH(c.ContractEndDT),1) as ContractEndDT
+  FROM 
+    ContractsId c
+  UNION ALL
+  SELECT 
+    c.SubID,
+    c.ContractID,
+    DATEADD(month, 1, rm.FromDT),
+    DATEADD(day, 1, EOMONTH(DATEADD(month, 1, rm.FromDT))),
+    rm.EndMonth,
+    c.ContractPeriod,
+	DATEFROMPARTS(YEAR(c.ContractEndDT), MONTH(c.ContractEndDT),1) as ContractEndDT
+  FROM 
+    RecursiveMonths rm
+  JOIN 
+    ContractsID c ON c.SubID = rm.SubID AND c.ContractID = rm.ContractID
+    AND DATEADD(month, 1, rm.FromDT) < rm.EndMonth
+)
+
+SELECT 
+  SubID,
+  FromDT,
+  ToDT,
+  ContractEndDT,
+  ContractPeriod,
+  DATEDIFF(MONTH, FromDT, ContractEndDT) as MonthTowardExpiration
+FROM 
+  RecursiveMonths
+ORDER BY
+  SubID,
+  FromDT;
+```
+## ins result
