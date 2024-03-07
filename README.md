@@ -43,7 +43,7 @@ ContractPeriod – продължителност на дългосрочния 
 Интервалът FromDT – ToDT е един календарен месец. 
 Стойността на MonthTowardExpiration е положителна, ако договорът не е изтекъл, 0, ако договорът изтича в съответния месец, и отрицателна, ако договорът е изтекъл.
 
-## ins pic
+![image](task2pic.PNG)
 
 ```sql
 WITH ContractsId AS (
@@ -93,4 +93,4 @@ ORDER BY
   SubID,
   FromDT;
 ```
-## ins result
+![image](result2.PNG)
