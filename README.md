@@ -34,11 +34,11 @@ ORDER BY
 
 ### Task 2
 You are given table Contracts, where we have historical intervals of the long term contracts of our customers.
-SubID – Id of the customer
-StartDT – Start date of contract
-EndDT – End date of contract
+SubID – Id of the customer.
+StartDT – Start date of contract.
+EndDT – End date of contract.
 ContractEndDT –  End date of the customer's contract.
-ContractPeriod – duration in months of the customer's contract
+ContractPeriod – duration in months of the customer's contract.
 You should query the monthly status of the customer's contracts and more precisely - calculate months towards expiration in a new variable called MonthTowardExpiration, where
 the interval FromDT – ToDT is one calendar month. 
 The value of MonthTowardExpiration should be positive if the contract isn't expired, zero(0) if the contract expires at the given month and negative if the contract is already expired.
