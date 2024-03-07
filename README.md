@@ -1,6 +1,6 @@
 ### Task 1
-Дадена е таблицата Staff, в която са записани служителите на компанията, датата, от която са на дадената позиция и ID на позицията.
-Да се извадят всички служители, които към 01.01.2014 са на PositionID = 15.
+You are given table Staff, where you are provided with the company employees, the date, which they started a particular position and the position ID.
+You should query all employees, which are occupying PositionID = 15 up to 01.01.2024.
 
 ![image](task1pic.PNG)
 
@@ -33,15 +33,15 @@ ORDER BY
 ![image](result1.PNG)
 
 ### Task 2
-Имаме таблица, която описва с исторически интервали дългосрочните договори на абонатите.
-SubID – Id на абоната
-StartDT – начална дата на записа
-EndDT – крайна дата на записа
-ContractEndDT – крайна дата на дългосрочния договор на абоната
-ContractPeriod – продължителност на дългосрочния договор
-Искаме да получим месечното състояние на договорите на абонатите и по-точно MonthTowardExpiration – брой месеци, оставащи до изтичането на договора
-Интервалът FromDT – ToDT е един календарен месец. 
-Стойността на MonthTowardExpiration е положителна, ако договорът не е изтекъл, 0, ако договорът изтича в съответния месец, и отрицателна, ако договорът е изтекъл.
+You are given table Contracts, where we have historical intervals of the long term contracts of our customers.
+SubID – Id of the customer
+StartDT – Start date of contract
+EndDT – End date of contract
+ContractEndDT –  End date of the customer's contract.
+ContractPeriod – duration in months of the customer's contract
+You should query the monthly status of the customer's contracts and more precisely - calculate months towards expiration in a new variable called MonthTowardExpiration, where
+the interval FromDT – ToDT is one calendar month. 
+The value of MonthTowardExpiration should be positive if the contract isn't expired, zero(0) if the contract expires at the given month and negative if the contract is already expired.
 
 ![image](task2pic.PNG)
 
