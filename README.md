@@ -1,6 +1,6 @@
 ### Task 1
 You are given table Staff, where you are provided with the company employees, the date, which they started a particular position and the position ID.
-You should query all employees, which are occupying PositionID = 15 up to 01.01.2024.
+You should query all employees, which are occupying PositionID = 15 up to 01.01.2014.
 
 ![image](task1pic.PNG)
 
